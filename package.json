@@ -1,0 +1,15 @@
+{
+  "name": "reactsnippetgenerator",
+  "version": "1.0.3",
+  "description": "React component creator",
+  "main": "app.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Antony Raj",
+  "license": "ISC"
+}
