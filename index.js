@@ -10,7 +10,7 @@ const checkIsPresent = () => {
 		console.log(
 			"Enter 1st argument as folder name and 2nd argument as component name"
 		);
-		process.exit(0);
+		process.exit(1);
 	}
 };
 

@@ -6,9 +6,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "bin": {
+    "react-snippet": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "author": "Antony Raj",
   "license": "ISC"
