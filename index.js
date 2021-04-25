@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 const inquirer = require("inquirer");
 const { snippetGenerator } = require("./GenerateFile");
+const { errorMessage } = require("./Messages");
 
 const initGenerator = async () => {
 	try {
@@ -19,7 +20,7 @@ const initGenerator = async () => {
 		]);
         snippetGenerator(type, name);
 	} catch (error) {
-		console.log(error.message);
+		errorMessage(error);
 	}
 };
 
