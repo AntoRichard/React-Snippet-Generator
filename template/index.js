@@ -1,8 +1,9 @@
 import React from 'react'
+import "./cssFileName.scss"
 
 const index = () => {
     return (
-        <div className="index-container">
+        <div className="componentClass">
             
         </div>
     )
