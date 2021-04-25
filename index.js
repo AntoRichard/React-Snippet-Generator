@@ -1,51 +1,26 @@
-const fs = require("fs");
+#! /usr/bin/env node
+const inquirer = require("inquirer");
+const { snippetGenerator } = require("./GenerateFile");
 
-const TYPE = process.argv[2].toLocaleLowerCase();
-
-const FILE_NAME =
-	process.argv[3]?.charAt(0).toUpperCase() + process.argv[3]?.slice(1);
-
-const checkIsPresent = () => {
-	if (!TYPE || !FILE_NAME) {
-		console.log(
-			"Enter 1st argument as folder name and 2nd argument as component name"
-		);
-		process.exit(1);
+const initGenerator = async () => {
+	try {
+		const { type, name } = await inquirer.prompt([
+			{
+				name: "type",
+				message: "What you want to generate",
+				type: "list",
+				choices: ["views", "components"],
+			},
+			{
+				name: "name",
+				message: "Enter the name of component/view",
+				type: "input",
+			},
+		]);
+        snippetGenerator(type, name);
+	} catch (error) {
+		console.log(error.message);
 	}
 };
 
-checkIsPresent();
-
-const generateFile = (filePath, context) => {
-	fs.writeFile(filePath, context, (error) => {
-		if (error) {
-			console.log(error);
-			return;
-		}
-	});
-};
-
-fs.mkdir(`${TYPE}/${FILE_NAME}`, { recursive: true }, (error) => {
-	const indexFilePath = `${TYPE}/${FILE_NAME}/index.tsx`;
-	const scssFilePath = `${TYPE}/${FILE_NAME}/${FILE_NAME.toLowerCase()}.scss`;
-	if (error) {
-		console.log(error);
-	}
-	fs.readFile(__dirname + "/template/index.js", (error, data) => {
-		if (error) {
-			console.log(error);
-			return;
-		}
-		const content = data.toString().replace(/index/g, FILE_NAME);
-		generateFile(indexFilePath, content);
-	});
-
-    fs.readFile(__dirname + "/template/template.scss", (error, data) => {
-		if (error) {
-			console.log(error);
-			return;
-		}
-		const content = data.toString().replace(/index/g, FILE_NAME);
-		generateFile(scssFilePath, content);
-	});
-});
+initGenerator();
