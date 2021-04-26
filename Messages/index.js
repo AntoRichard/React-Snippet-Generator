@@ -10,7 +10,7 @@ const errorMessage = (error) => {
 	console.log(error.message);
 	console.log(
 		chalk.green.bold(
-			`Unable to generate🤕, check the above log for reference 😅`
+			`Unable to generate 🤕, check the above log for reference 😅`
 		)
 	);
 	process.exit(1);

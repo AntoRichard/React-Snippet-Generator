@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 
-/* Template path */ 
+/* Template path */
 const { TSX_TEMPLATE_PATH, SCSS_TEMPLATE_PATH } = require("../constants");
 
 /* Messages */
 const { successMessage, errorMessage } = require("../Messages");
 
-/* Helper function */ 
+/* Helper function */
 const {
 	stringReplace,
 	convertFirstLetterToLower,
@@ -44,9 +44,13 @@ const generateTemplate = async (fileName, templatePath, filePath) => {
 exports.snippetGenerator = async (type, name) => {
 	try {
 		const FILE_NAME = name.charAt(0).toUpperCase() + name.slice(1);
-
+		console.log({ type });
 		/* generate code base path */
-		const basePath = path.join("src", type, FILE_NAME);
+		const basePath = path.join(
+			"src",
+			type === "components" ? `shared/${type}` : type,
+			FILE_NAME
+		);
 		const fileName = getFileName(FILE_NAME);
 		const indexFilePath = path.join(basePath, "index.tsx");
 		const scssFilePath = path.join(
