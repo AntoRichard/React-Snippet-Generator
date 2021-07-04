@@ -46,7 +46,6 @@ const generateTemplate = async (fileName, templatePath, filePath) => {
 exports.snippetGenerator = async (type, name) => {
 	try {
 		const FILE_NAME = name.charAt(0).toUpperCase() + name.slice(1);
-		console.log({ type });
 		/* generate code base path */
 		const basePath = path.join(
 			"src",
