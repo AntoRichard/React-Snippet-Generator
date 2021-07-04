@@ -39,7 +39,7 @@ const generateTemplate = async (fileName, templatePath, filePath) => {
 		/cssFileName/g,
 		convertFirstLetterToLower(fileName)
 	);
-	content = stringReplace(content, /ComponentProps/g, convertFirstLetterToUpper(fileName));
+	content = stringReplace(content, /ComponentProps/g, `${convertFirstLetterToUpper(fileName)}Props`);
 	return generateFile(filePath, content);
 };
 
