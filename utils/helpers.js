@@ -18,6 +18,8 @@ exports.convertToHyphenated = (name) => {
 
 exports.convertFirstLetterToLower = (name) => name.charAt(0).toLowerCase() + name.slice(1);
 
+exports.convertFirstLetterToUpper = (name) => name.charAt(0).toUpperCase() + name.slice(1);
+
 exports.stringReplace = (content, match, fileName) => {
     return content.toString().replace(match, fileName);
 }

@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./cssFileName.scss"
 
-const index = () => {
+interface ComponentProps {
+
+}
+
+const index: FC<ComponentProps> = (props) => {
+    const { } = props;
+
     return (
         <div className="componentClass">
             

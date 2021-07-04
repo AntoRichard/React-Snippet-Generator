@@ -6,6 +6,7 @@ const { TSX_TEMPLATE_PATH, SCSS_TEMPLATE_PATH } = require("../constants");
 
 /* Messages */
 const { successMessage, errorMessage } = require("../Messages");
+const { convertFirstLetterToUpper } = require("../utils/helpers");
 
 /* Helper function */
 const {
@@ -38,6 +39,7 @@ const generateTemplate = async (fileName, templatePath, filePath) => {
 		/cssFileName/g,
 		convertFirstLetterToLower(fileName)
 	);
+	content = stringReplace(content, /ComponentProps/g, convertFirstLetterToUpper(fileName));
 	return generateFile(filePath, content);
 };
 
