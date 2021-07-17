@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const { errorMessage } = require("../Messages");
+const { successMessage, errorMessage } = require("../Messages");
 /* Helper function */
 const {
 	stringReplace,
@@ -91,6 +91,9 @@ exports.reduxSnippetGenerator = async (name) => {
 				generator.templatePath
 			);
 		}
+
+        successMessage("Redux template", name);
+		process.exit(0);
 	} catch (error) {
 		errorMessage(error);
 	}
