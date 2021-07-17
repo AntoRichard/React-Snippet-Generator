@@ -43,7 +43,7 @@ const generateTemplate = async (fileName, templatePath, filePath) => {
 	return generateFile(filePath, content);
 };
 
-exports.snippetGenerator = async (type, name) => {
+exports.reactSnippetGenerator = async (type, name) => {
 	try {
 		const FILE_NAME = name.charAt(0).toUpperCase() + name.slice(1);
 		/* generate code base path */

@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 const inquirer = require("inquirer");
-const { snippetGenerator } = require("./GenerateFile");
+const { reactSnippetGenerator } = require("./GenerateReactFile");
+const { reduxSnippetGenerator } = require("./GenerateReduxFile");
 const { errorMessage } = require("./Messages");
 
 const initGenerator = async () => {
@@ -10,7 +11,7 @@ const initGenerator = async () => {
 				name: "type",
 				message: "What you want to generate",
 				type: "list",
-				choices: ["views", "components"],
+				choices: ["views", "components", "redux-snippet"],
 			},
 			{
 				name: "name",
@@ -18,7 +19,14 @@ const initGenerator = async () => {
 				type: "input",
 			},
 		]);
-        snippetGenerator(type, name);
+
+		switch (type) {
+			case "redux-snippet":
+				reduxSnippetGenerator(name);
+				return;
+			default:
+				reactSnippetGenerator(type, name);
+		}
 	} catch (error) {
 		errorMessage(error);
 	}
