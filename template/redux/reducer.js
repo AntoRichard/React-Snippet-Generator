@@ -2,21 +2,21 @@ import { CreateReducer } from "../../shared/utils/createReducer";
 import { SET_INDEX } from "../definitions/indexConstants";
 import { ActionProps } from "../../shared/types/action.type";
 
-export interface IndexState {
+export interface IndexProps {
     // Replace with your var and it's type
     key: any;
 }
 
-export interface IndexReducerProps extends IndexState {
+export interface IndexReducerProps extends IndexProps {
     setIndex: (key: any) => ActionProps;
 }
 
-const initState: IndexState = {
+const initState: IndexProps = {
     key: ""
 };
 
 const indexReducer = CreateReducer(initState, {
-    [SET_INDEX](state: IndexState, action: ActionProps): IndexState {
+    [SET_INDEX](state: IndexProps, action: ActionProps): IndexProps {
         const { key } = action?.payload;
         return {
             ...state,

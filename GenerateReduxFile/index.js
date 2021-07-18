@@ -13,6 +13,7 @@ const {
 	REDUCER_TEMPLATE_PATH,
 	ACTION_TEMPLATE_PATH,
 	CONTAINER_TEMPLATE_PATH,
+	ROOT_REDUCER_TEMPLATE_PATH,
 } = require("../constants");
 
 /* Write file generator */
@@ -35,6 +36,40 @@ const generateReduxFile = (fileName, filePath, templatePath) =>
 				/Index/g,
 				convertFirstLetterToUpper(fileName)
 			);
+			generateFile(filePath, content);
+			resolve(null);
+		} catch (error) {
+			reject(error);
+		}
+	});
+
+const autoImportRootReducer = (fileName, filePath) =>
+	new Promise(async (resolve, reject) => {
+		const propsName = `${convertFirstLetterToUpper(fileName)}Props`;
+		const reducerName = `${fileName.toLowerCase()}Reducer`;
+		const contentReplacements = [
+			{
+				findWith: /export interface RootReducerProps {/g,
+				replaceWith: `export interface RootReducerProps {
+	${fileName.toLowerCase()}: ${propsName},`,
+			},
+			{
+				findWith:
+					/const RootReducer = combineReducers<RootReducerProps>\({/g,
+				replaceWith: `const RootReducer = combineReducers<RootReducerProps>({
+	${fileName.toLowerCase()}: ${reducerName},`,
+			},
+			{
+				findWith: /import { combineReducers } from "redux";/g,
+				replaceWith: `import { combineReducers } from "redux";
+	import ${reducerName}, { ${propsName} } from ./"${reducerName}"`,
+			},
+		];
+		try {
+			let content = await fs.readFileSync(filePath);
+			for (let { findWith, replaceWith } of contentReplacements) {
+				content = stringReplace(content, findWith, replaceWith);
+			}
 			generateFile(filePath, content);
 			resolve(null);
 		} catch (error) {
@@ -92,9 +127,12 @@ exports.reduxSnippetGenerator = async (name) => {
 			);
 		}
 
-        successMessage("Redux template", name);
+		//  Auto import
+		await autoImportRootReducer(FILE_NAME, ROOT_REDUCER_TEMPLATE_PATH);
+		successMessage("Redux template", name);
 		process.exit(0);
 	} catch (error) {
 		errorMessage(error);
+		process.exit(1);
 	}
 };
